@@ -1,2 +1,12 @@
 ﻿body {
 }
+
+#canvas{
+    border:dashed 1px black;
+}
+
+ul#playerStats {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px;
+}

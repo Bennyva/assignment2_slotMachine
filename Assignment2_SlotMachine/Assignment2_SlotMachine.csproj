@@ -69,6 +69,25 @@
   <ItemGroup>
     <Content Include="css\app.css" />
     <Content Include="css\normalize.css" />
+    <Content Include="images\bananas.png" />
+    <Content Include="images\bars.png" />
+    <Content Include="images\bells.png" />
+    <Content Include="images\bet15Btn.png" />
+    <Content Include="images\bet5Btn.png" />
+    <Content Include="images\blanks.png" />
+    <Content Include="images\button1.png" />
+    <Content Include="images\cherries.png" />
+    <Content Include="images\frame.png" />
+    <Content Include="images\grapes.png" />
+    <Content Include="images\oranges.png" />
+    <Content Include="images\resetBtn.png" />
+    <Content Include="images\sevens.png" />
+    <Content Include="images\slotMachine.jpg" />
+    <Content Include="images\slotMachine.png" />
+    <Content Include="images\spinBtn.png" />
+    <Content Include="images\wheel1.png" />
+    <Content Include="images\wheel2.png" />
+    <Content Include="images\wheel3.png" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
@@ -76,20 +95,27 @@
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\lib\easeljs-0.7.1.min.js" />
+    <Content Include="sounds\100Coints.wav" />
+    <Content Include="sounds\30Coins.wav" />
+    <Content Include="sounds\backgroundNoise.mp3" />
+    <Content Include="sounds\button.wav" />
+    <Content Include="sounds\oneCoin.wav" />
+    <Content Include="sounds\slutmahines3.wav" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\game.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\createjs\createjs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\preloadjs\preloadjs.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\soundjs\soundjs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\tweenjs\tweenjs.d.ts" />
   </ItemGroup>
   <PropertyGroup>
