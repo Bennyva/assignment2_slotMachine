@@ -84,6 +84,7 @@
     <Content Include="images\sevens.png" />
     <Content Include="images\slotMachine.jpg" />
     <Content Include="images\slotMachine.png" />
+    <Content Include="images\spin.png" />
     <Content Include="images\spinBtn.png" />
     <Content Include="images\wheel1.png" />
     <Content Include="images\wheel2.png" />

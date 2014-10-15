@@ -62,9 +62,15 @@ var wheel2;
 var wheel3;
 
 var wheel1Img = new Image();
-wheel1Img.src = "images/bananas.png";
+var wheel2Img = new Image();
+var wheel3Img = new Image();
 
-var wheels = [wheel1 = new createjs.Bitmap(wheel1Img), wheel2 = new createjs.Bitmap("images/grapes.png"), wheel3 = new createjs.Bitmap("images/grapes.png")];
+wheel1Img.src = "images/spin.png";
+wheel2Img.src = "images/spin.png";
+wheel3Img.src = "images/spin.png";
+
+
+var wheels = [wheel1 = new createjs.Bitmap(wheel1Img), wheel2 = new createjs.Bitmap(wheel2Img), wheel3 = new createjs.Bitmap(wheel3Img)];
 
 
 var spinBtn;
@@ -94,6 +100,7 @@ function drawSlotMachine() {
     slotMachineBitmap.scaleX = 0.64;
     slotMachineBitmap.scaleY = 0.64;
     stage.addChild(slotMachineBitmap);
+
 
     spinBtn = new createjs.Bitmap("images/spinBtn.png");
     spinBtn.x = 500;
@@ -144,23 +151,22 @@ function drawSlotMachine() {
     stage.addChild(resetBtn);
 
     stage.addChild(wheels[0]);
-    wheels[0].x = 190;
+    wheels[0].x = 180;
     wheels[0].y = 420;
     wheels[0].scaleX = 0.5;
     wheels[0].scaleY = 0.5;
     stage.addChild(wheels[1]);
-    wheels[1].x = 285;
+    wheels[1].x = 275;
     wheels[1].y = 420;
     wheels[1].scaleX = 0.5;
     wheels[1].scaleY = 0.5;
     stage.addChild(wheels[2]);
-    wheels[2].x = 375;
+    wheels[2].x = 370;
     wheels[2].y = 420;
     wheels[2].scaleX = 0.5;
     wheels[2].scaleY = 0.5;
 
 
-    alert("wheels added");
 
     grapesImg.src = "images/grapes.png";
     bananasImg.src = "images/bananas.png";
@@ -365,8 +371,20 @@ function clickHandlerBet5() {
 
 function clickHandlerReset() {
     buttonNoise.play();
-    resetBtnClicked = true;
-    confirm("reset?");
+    if (confirm("reset?")) {
+        playerBet = 0;
+        jackpot = 5000;
+        wheels[0].image = wheel1Img;
+        wheels[1].image = wheel2Img;
+        wheels[2].image = wheel3Img;
+        playerMoney = 1000;
+        playerMoneyText.text = "Player Money: " + playerMoney;
+        betAmountText.text = "Bet: " + playerBet;
+        jackpotAmountText.text = "Jackpot: " + jackpot;
+
+        drawSlotMachine();
+    }
+    
 }
 
 
