@@ -1,4 +1,13 @@
-﻿var playerMoney = 1000;
+﻿//INTERNAL DOC
+/*Author: Benjamin Vanarragon
+ * Last Modified By : Benjamin Vanarragon
+ * Date Last Modified: October 16, 2014
+ * Description: This is the typescript/javascript file that draws the images onto the cavas element in index.html, this also control the buttons, and event handlers
+ * Revision History: Code is finished, haven't needed to revise anything yet.
+ */
+
+//declaring variables
+var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
 var turn = 0;
@@ -9,6 +18,7 @@ var spinResult;
 var fruits = "";
 var winRatio = 0;
 var grapes = 0;
+//declaring images
 var grapesImg = new Image();
 var bananas = 0;
 var bananasImg = new Image();
@@ -24,15 +34,25 @@ var sevens = 0;
 var sevensImg = new Image();
 var blanks = 0;
 var blanksImg = new Image();
+//frame image, drawn over wheels
 var frameImg = new Image();
 frameImg.src = "images/frame.png";
 var frame = new createjs.Bitmap(frameImg);
+//x-out button
+var closeWindowsImg = new Image();
+closeWindowsImg.src = "images/close.png";
+var closeWindows = new createjs.Bitmap(closeWindowsImg);
+//cancel sign hovers over slot machine
+var quit = new Image();
+quit.src = "images/quitHover.png";
+var quitHover = new createjs.Bitmap(quit);
 
+//initializing audio files
 var win = new Audio();
 win.src = "sounds/slutmahines3.wav";
 var backgroundNoise = new Audio();
 backgroundNoise.src = "sounds/backgroundNoise.mp3";
-backgroundNoise.volume = 0.2;
+backgroundNoise.volume = 0.4;
 var buttonNoise = new Audio();
 buttonNoise.src = "sounds/button.wav";
 var oneCoin = new Audio();
@@ -42,66 +62,63 @@ thirtyCoins.src = "sounds/30Coins.wav";
 var OneHundredCoins = new Audio();
 OneHundredCoins.src = "sounds/100Coints.wav";
 
-
-
-
-
-var bet5BtnClicked = false;
-var bet15BtnClicked = false;
-var resetBtnClicked = false;
-var spinBtnClicked = false;
-
+//initializing text elements for the player stats
 var playerMoneyText = new createjs.Text("Player Money: " + playerMoney, "12px Tahoma", "White");
 var betAmountText = new createjs.Text("Bet: " + playerBet, "12px Tahoma", "White");
 var jackpotAmountText = new createjs.Text("Jackpot: " + jackpot, "12px Tahoma", "White");
 
+//creating the stage that refers to the canvas element in index.html
 var stage = new createjs.Stage(document.getElementById("canvas"));
 
+//wheels that the shapes are drawn on
 var wheel1;
 var wheel2;
 var wheel3;
 
+//wheel images
 var wheel1Img = new Image();
 var wheel2Img = new Image();
 var wheel3Img = new Image();
-
+//setting the image sources to refer to the starting image with a "?"
 wheel1Img.src = "images/spin.png";
 wheel2Img.src = "images/spin.png";
 wheel3Img.src = "images/spin.png";
-
-
+//declaring the wheels array
 var wheels = [wheel1 = new createjs.Bitmap(wheel1Img), wheel2 = new createjs.Bitmap(wheel2Img), wheel3 = new createjs.Bitmap(wheel3Img)];
 
-
+//declaring buttons for slot machine
 var spinBtn;
 var bet5Btn;
 var bet15Btn;
 var resetBtn;
 
+//this is the function that loads from the body of our html page
 function init() {
+    //setting the frames to 60 fps
     createjs.Ticker.setFPS(60);
-
+    //this function draws the slot machine on the canvas
     drawSlotMachine();
+    //updating the stage to show the changes so far
     stage.update();
+    //this event listener is called every tick
     createjs.Ticker.addEventListener("tick", handleTick);
+    //enables me to use mouseover and mouseout eventlisteners
     stage.enableMouseOver(20);
-    //draws the slotmachine and buttons
-    
-
 }
 
+//this function is called 60 times a second, and updates the stage so user can see the changes occuring
 function handleTick() {
-    stage.update();
-    
+    stage.update();  
 }
-
+//this function is called when the website loads, it draws the slot machine and plots the buttons on it, it also plots the fruits, and adds them to the stage
 function drawSlotMachine() {
+    //background slot machine
     var slotMachineBitmap = new createjs.Bitmap("images/slotMachine.png");
     slotMachineBitmap.scaleX = 0.64;
     slotMachineBitmap.scaleY = 0.64;
     stage.addChild(slotMachineBitmap);
-
-
+    
+    //spin button
     spinBtn = new createjs.Bitmap("images/spinBtn.png");
     spinBtn.x = 500;
     spinBtn.y = 265;
@@ -114,6 +131,7 @@ function drawSlotMachine() {
     spinBtn.addEventListener("pressup", upHandlerSpinBtn);
     stage.addChild(spinBtn);
 
+    //bet 15 button
     bet15Btn = new createjs.Bitmap("images/bet15Btn.png");
     bet15Btn.x = 380;
     bet15Btn.y = 635;
@@ -126,6 +144,7 @@ function drawSlotMachine() {
     bet15Btn.addEventListener("pressup", upHandlerBet15);
     stage.addChild(bet15Btn);
 
+    //bet 5 button
     bet5Btn = new createjs.Bitmap("images/bet5Btn.png");
     bet5Btn.x = 260;
     bet5Btn.y = 635;
@@ -138,6 +157,7 @@ function drawSlotMachine() {
     bet5Btn.addEventListener("pressup", upHandlerBet5);
     stage.addChild(bet5Btn);
 
+    //reset button
     resetBtn = new createjs.Bitmap("images/resetBtn.png");
     resetBtn.x = 140;
     resetBtn.y = 635;
@@ -150,6 +170,7 @@ function drawSlotMachine() {
     resetBtn.addEventListener("pressup", upHandlerResetBtn);
     stage.addChild(resetBtn);
 
+    //adding the wheels array with the default wheel images ontop of the slot machine background
     stage.addChild(wheels[0]);
     wheels[0].x = 180;
     wheels[0].y = 420;
@@ -166,8 +187,7 @@ function drawSlotMachine() {
     wheels[2].scaleX = 0.5;
     wheels[2].scaleY = 0.5;
 
-
-
+    //setting the images that were declared at the top of this file to actual images
     grapesImg.src = "images/grapes.png";
     bananasImg.src = "images/bananas.png";
     orangesImg.src = "images/oranges.png";
@@ -177,69 +197,45 @@ function drawSlotMachine() {
     sevensImg.src = "images/sevens.png";
     blanksImg.src = "images/blanks.png";
     
-
-    var grapesTest = new createjs.Bitmap(grapesImg);
-    var bananasTest = new createjs.Bitmap(bananasImg);
-    var orangesTest = new createjs.Bitmap(orangesImg);
-    var cherriesTest = new createjs.Bitmap(cherriesImg);
-    var barsTest = new createjs.Bitmap(barsImg);
-    var bellsTest = new createjs.Bitmap(bellsImg);
-    var sevensTest = new createjs.Bitmap(sevensImg);
-    var blanksTest = new createjs.Bitmap(blanksImg);
-    
-    
-    
+    //this is put on the slot machine after the wheel images are drawn on the canvas so they don't overlap the borders   
     stage.addChild(frame);
     frame.scaleX = .64;
     frame.scaleY = .64;
 
-    /*
-    stage.addChild(grapesTest);
-    grapesTest.x = 190;
-    grapesTest.y = 420;
-    grapesTest.scaleX = 0.5;
-    grapesTest.scaleY = 0.5;
-    stage.addChild(bananasTest);
-    bananasTest.x = 190;
-    bananasTest.y = 420;
-    stage.addChild(orangesTest);
-    orangesTest.x = 185;
-    orangesTest.y = 420;
-    orangesTest.scaleX = 0.5;
-    orangesTest.scaleY = 0.5;
-    stage.addChild(cherriesTest);
-    cherriesTest.x = 180;
-    cherriesTest.y = 420;
-    cherriesTest.scaleX = 0.5;
-    cherriesTest.scaleY = 0.5;
-    stage.addChild(barsTest);
-    barsTest.x = 168;
-    barsTest.y = 420;
-    stage.addChild(bellsTest);
-    bellsTest.x = 180;
-    bellsTest.y = 420;
-    bellsTest.scaleX = 0.7;
-    bellsTest.scaleY = 0.7;
-    stage.addChild(sevensTest);
-    sevensTest.x = 180;
-    sevensTest.y = 420;
-    sevensTest.scaleX = 0.5;
-    sevensTest.scaleY = 0.5;
-    //stage.addChild(blanksTest);
-    */
-
+    //adds the players money text object
     stage.addChild(playerMoneyText);
     playerMoneyText.x = 130;
     playerMoneyText.y = 573;
 
+    //adds the bet amount text object
     stage.addChild(betAmountText);
     betAmountText.x = 295;
     betAmountText.y = 573;
 
+    //adds the jackpot text object
     stage.addChild(jackpotAmountText);
     jackpotAmountText.x = 390;
     jackpotAmountText.y = 573;
 
+    //adds the big red cancel image
+    stage.addChild(quitHover);
+    quitHover.x = -1000;
+    quitHover.y = -1000;
+    quitHover.scaleX = 1.2;
+    quitHover.scaleY = 1.2;
+
+    //adds the black x-out image in the top right above the slots, used anonymouse functions here
+    stage.addChild(closeWindows);
+    closeWindows.x = 500;
+    closeWindows.y = 0;
+    closeWindows.addEventListener("click", function () { window.close() });
+    closeWindows.addEventListener("mouseover", function () { closeWindows.x += 1, closeWindows.y += 1, quitHover.x = 20, quitHover.y = 200 });
+    closeWindows.addEventListener("mouseout", function () { closeWindows.x -= 1, closeWindows.y -= 1, quitHover.x = -1000, quitHover.y = -1000  });
+    closeWindows.addEventListener("mousedown", function () { closeWindows.scaleX = 0.8, closeWindows.scaleY = 0.8, closeWindows.x += 10, closeWindows.y += 10  });
+    closeWindows.addEventListener("pressup", function () {
+    closeWindows.scaleX = 1, closeWindows.scaleY = 1, closeWindows.x -= 10, closeWindows.y -= 10});
+
+    //background ambient noise that loops on the website
     backgroundNoise.addEventListener('ended', function () {
         
         this.currentTime = 0;
@@ -248,7 +244,7 @@ function drawSlotMachine() {
     backgroundNoise.play();
 
 }
-//Mouse up events
+//Mouse up events, animates the buttons growing back to their original size
 function upHandlerBet15() {
     bet15Btn.scaleX = 0.35;
     bet15Btn.scaleY = 0.35;
@@ -277,7 +273,7 @@ function upHandlerResetBtn() {
     resetBtn.y -= 5;
     stage.update();
 }
-//Mouse Down Events
+//Mouse Down Events, animates buttons shrinking when clicked down on
 function downHandlerBet15() {
     bet15Btn.scaleX = 0.3;
     bet15Btn.scaleY = 0.3;
@@ -311,27 +307,47 @@ function downHandlerResetBtn() {
     stage.update();
 }
 
-//Click Events
+//Click Events, perform various tasks
+//when user clicks spin, this validates that the user has enough money to make the bet, then calls the Reels function which randomly decided what fruits are picked
 function clickHandlerSpin() {
     
-    spinBtnClicked = true;
+
     /* When the player clicks the spin button the game kicks off */
     buttonNoise.play();
-        playerBet = playerBet;
-
-        if (playerMoney == 0) {
-            if (confirm("You ran out of Money! \nDo you want to play again?")) {
-                resetAll();
-                showPlayerStats();
-            }
-        }
-        else if (playerBet > playerMoney) {
+    playerBet = playerBet;
+    //if players money is 0
+    if (playerMoney == 0) {
+        //resets the game
+        clickHandlerReset();
+        showPlayerStats();
+            
+    }
+    //if players bet is greater than the amount of money they have
+    else if (playerBet > playerMoney) {
+        //disable spin button and its event handlers
+        spinBtn.alpha = 0.5;
+        spinBtn.removeEventListener("click", clickHandlerSpin);
+        spinBtn.removeEventListener("mouseover", overHandlerSpinBtn);
+        spinBtn.removeEventListener("mouseout", outHandlerSpinBtn);
+        spinBtn.removeEventListener("mousedown", downHandlerSpinBtn);
+        spinBtn.removeEventListener("pressup", upHandlerSpinBtn);
             alert("You don't have enough Money to place that bet.");
-        }
-        else if (playerBet <= 0) {
-            alert("All bets must be greater than 0");
-        }
-        else if (playerBet <= playerMoney) {
+            
+    }
+    //if player bet is less then or equal to 0, disable spin button and provide error msg
+    else if (playerBet <= 0) {
+        spinBtn.removeEventListener("click", clickHandlerSpin);
+        spinBtn.removeEventListener("mouseover", overHandlerSpinBtn);
+        spinBtn.removeEventListener("mouseout", outHandlerSpinBtn);
+        spinBtn.removeEventListener("mousedown", downHandlerSpinBtn);
+        spinBtn.removeEventListener("pressup", upHandlerSpinBtn);
+        spinBtn.alpha = 0.5;
+        alert("All bets must be greater than 0");
+    }
+    //if player bet is valid
+    else if (playerBet <= playerMoney) {
+        spinBtn.alpha = 1;
+            //call reels function, and store it in spinResult
             spinResult = Reels();
             fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
             $("div#result>p").text(fruits);
@@ -341,43 +357,66 @@ function clickHandlerSpin() {
             playerMoneyText.text = "Player Money: " + playerMoney;
             //playerMoney = playerMoney - playerBet + winnings;
             jackpotAmountText.text = "Jackpot: " + jackpot;
+            //after the images are drawn on, draw the frame to prevent border overlaps
             stage.addChild(frame);
             frame.scaleX = .64;
             frame.scaleY = .64;
 
-        }
+    }
+        //general error
         else {
             alert("Please enter a valid bet amount");
         }
 
 }
 
-
+//when user clicks the bet 15 btn, it plays a noise, sets the playerBet value, and changes the playerbet text value, and if its a valid bet amount re-enable spinBtn
 function clickHandlerBet15() {
-    buttonNoise.play();
     playerBet = 15;
-    betAmountText.text = "Bet: " + playerBet;
-    bet15BtnClicked = true;
-    stage.update();
-}
-
-function clickHandlerBet5() {
     buttonNoise.play();
-    playerBet = 5;
     betAmountText.text = "Bet: " + playerBet;
-    bet5BtnClicked = true;
-    stage.update();
+    if (playerBet <= playerMoney) {
+        spinBtn.addEventListener("click", clickHandlerSpin);
+        spinBtn.addEventListener("mouseover", overHandlerSpinBtn);
+        spinBtn.addEventListener("mouseout", outHandlerSpinBtn);
+        spinBtn.addEventListener("mousedown", downHandlerSpinBtn);
+        spinBtn.addEventListener("pressup", upHandlerSpinBtn);
+        spinBtn.alpha = 1;
+    }
+    else {
+        spinBtn.alpha = 0.5;
+    }
+    
 }
-
+//when user clicks the bet 5 btn, it plays a noise, sets the playerBet value, and changes the playerbet text value, and if its a valid bet amount re-enable spinBtn
+function clickHandlerBet5() {
+    playerBet = 5;
+    buttonNoise.play();
+    betAmountText.text = "Bet: " + playerBet;
+    if (playerBet <= playerMoney) {
+        spinBtn.addEventListener("click", clickHandlerSpin);
+        spinBtn.addEventListener("mouseover", overHandlerSpinBtn);
+        spinBtn.addEventListener("mouseout", outHandlerSpinBtn);
+        spinBtn.addEventListener("mousedown", downHandlerSpinBtn);
+        spinBtn.addEventListener("pressup", upHandlerSpinBtn);
+        spinBtn.alpha = 1;
+    }
+    else {
+        spinBtn.alpha = 0.5;
+    }
+}
+    
+//resets the game to original values, and resets text objects, and wheel images to default images, and calls the drawSlotMachine function again
 function clickHandlerReset() {
     buttonNoise.play();
-    if (confirm("reset?")) {
+    if (confirm("The game will now reset.")) {
         playerBet = 0;
+        playerMoney = 1000;
         jackpot = 5000;
         wheels[0].image = wheel1Img;
         wheels[1].image = wheel2Img;
         wheels[2].image = wheel3Img;
-        playerMoney = 1000;
+        
         playerMoneyText.text = "Player Money: " + playerMoney;
         betAmountText.text = "Bet: " + playerBet;
         jackpotAmountText.text = "Jackpot: " + jackpot;
@@ -388,37 +427,30 @@ function clickHandlerReset() {
 }
 
 
-//Mouse Over
+//Mouse Over handlers, animate a btn jump when user hovers over button
 function overHandlerBet15() {
 
     bet15Btn.x += 1;
     bet15Btn.y += 1;
-    
-    stage.update();
 }
 
 function overHandlerBet5() {
     bet5Btn.x += 1;
     bet5Btn.y += 1;
-    stage.update();
 }
 function overHandlerSpinBtn() {
     spinBtn.x += 1;
     spinBtn.y += 1;
-    stage.update();
 }
 function overHandlerResetBtn() {
     resetBtn.x += 1;
     resetBtn.y += 1;
-    stage.update();
 }
 
-//Mouse Out
+//Mouse Out, puts button back to original position when user stops hovering over button
 function outHandlerBet15() {
     bet15Btn.x -= 1;
     bet15Btn.y -= 1;
-    stage.update();
-    
 }
 
 function outHandlerBet5() {
@@ -528,8 +560,7 @@ function checkRange(value, lowerBounds, upperBounds) {
     }
 }
 
-/* When this function is called it determines the betLine results.
-e.g. Bar - Orange - Banana */
+/* When this function is called it determines the wheels images results and draws them onto the canvas element
 function Reels() {
     var betLine = [" ", " ", " "];
     var outCome = [0, 0, 0];
@@ -538,6 +569,7 @@ function Reels() {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
+                //checks what spin value is and places the correct image on the correct wheel, ex: if spin is 2 places it on 2nd wheel etc.
                 if (spin == 0) {
                     wheels[spin].x = 190; wheels[spin].y = 420;
                 }
@@ -547,8 +579,10 @@ function Reels() {
                 else if (spin == 2) {
                     wheels[spin].x = 375; wheels[spin].y = 420;
                 }
-                betLine[spin] = "blank";
+
+                //sets the wheels image to blank image in this instance, below are all the other options, same code
                 wheels[spin].image = blanksImg;
+                //position it correctly according to blankImg size
                 wheels[spin].x -= 5;
                 wheels[spin].y += 5;
                 wheels[spin].scaleX = 0.45;

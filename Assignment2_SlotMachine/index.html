@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<!--INTERNAL DOC
+ Author: Benjamin Vanarragon
+ Last Modified By : Benjamin Vanarragon
+ Date Last Modified: October 16, 2014
+ Description: This is the index file for the game, it is just a cavas element which the javascript uses to draw on. This also references to all the other files ex: css, js
+ Revision History: Code is finished, haven't needed to revise anything yet.
+ -->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,16 +17,13 @@
     <link href="css/app.css" rel="stylesheet" />
 </head>
 <body onload="init()">
-    <canvas id="canvas" width="640" height="960"></canvas>
-
-    <div>
-        <h1>Slot Machine</h1>
-        <div>
+    <div id="wrapper">
+        <!--
+        <div class="stats">
             <h2>Player Statistics</h2>
             <hr />
             <ul id="playerStats">
-                <li id="jackpot">Jackpot: 500</li>
-                <li id="playerMoney">Player Money: 1000</li>
+
                 <li id="playerTurn">Turn: 0</li>
                 <li id="playerWins">Wins: 0</li>
                 <li id="playerLosses">Losses: 0</li>
@@ -26,24 +31,14 @@
             </ul>
             <hr />
         </div>
-        <div id="betEntry">
-            <p>Place Your Bet Here</p>
-            <input id="playerBet" name="points" value="10">
-            <hr />
-        </div>
+            -->
 
-        <button id="spinButton">Spin!</button>
-    </div>
-    <div id="result">
-        <h2>Spin Result</h2>
-        <hr />
-        <p></p>
-    </div>
-    <hr />
-    <div id="winOrLose">
-        <p></p>
-    </div>
+    <canvas id="canvas" width="640" height="960"></canvas>
 
+
+    
+  </div>
+        
 
     <!-- JavaScript Section -->
     <script src="Scripts/jquery-2.1.1.min.js"></script>

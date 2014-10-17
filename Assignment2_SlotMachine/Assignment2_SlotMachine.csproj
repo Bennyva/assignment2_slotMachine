@@ -77,9 +77,11 @@
     <Content Include="images\blanks.png" />
     <Content Include="images\button1.png" />
     <Content Include="images\cherries.png" />
+    <Content Include="images\close.png" />
     <Content Include="images\frame.png" />
     <Content Include="images\grapes.png" />
     <Content Include="images\oranges.png" />
+    <Content Include="images\quitHover.png" />
     <Content Include="images\resetBtn.png" />
     <Content Include="images\sevens.png" />
     <Content Include="images\slotMachine.jpg" />

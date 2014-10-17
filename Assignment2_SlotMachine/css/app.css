@@ -1,12 +1,21 @@
-﻿body {
+﻿/*INTERNAL DOC
+ *Author: Benjamin Vanarragon
+ * Last Modified By : Benjamin Vanarragon
+ * Date Last Modified: October 16, 2014
+ * Description: This is the css for the game, not much needed, just centering the platform and disabling scrolling, 
+ * Revision History: Code is finished, haven't needed to revise anything yet.
+ */
+
+/*disables vertical scrolling*/
+html {
+    overflow-y: hidden;
+
 }
 
+/*centers the slot machine*/
 #canvas{
-    border:dashed 1px black;
-}
+    display:block;
+    margin:15px auto;
 
-ul#playerStats {
-    list-style-type: none;
-    padding: 0;
-    margin: 5px;
+
 }
