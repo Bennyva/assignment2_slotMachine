@@ -1,11 +1,10 @@
 ﻿//INTERNAL DOC
 /*Author: Benjamin Vanarragon
- * Last Modified By : Benjamin Vanarragon
- * Date Last Modified: October 16, 2014
- * Description: This is the typescript/javascript file that draws the images onto the cavas element in index.html, this also control the buttons, and event handlers
- * Revision History: Code is finished, haven't needed to revise anything yet.
- */
-
+* Last Modified By : Benjamin Vanarragon
+* Date Last Modified: October 16, 2014
+* Description: This is the typescript/javascript file that draws the images onto the cavas element in index.html, this also control the buttons, and event handlers
+* Revision History: Code is finished, haven't needed to revise anything yet.
+*/
 //declaring variables
 var playerMoney = 1000;
 var winnings = 0;
@@ -18,6 +17,7 @@ var spinResult;
 var fruits = "";
 var winRatio = 0;
 var grapes = 0;
+
 //declaring images
 var grapesImg = new Image();
 var bananas = 0;
@@ -34,14 +34,17 @@ var sevens = 0;
 var sevensImg = new Image();
 var blanks = 0;
 var blanksImg = new Image();
+
 //frame image, drawn over wheels
 var frameImg = new Image();
 frameImg.src = "./images/frame.png";
 var frame = new createjs.Bitmap(frameImg);
+
 //x-out button
 var closeWindowsImg = new Image();
 closeWindowsImg.src = "./images/close.png";
 var closeWindows = new createjs.Bitmap(closeWindowsImg);
+
 //cancel sign hovers over slot machine
 var quit = new Image();
 quit.src = "./images/quitHover.png";
@@ -93,10 +96,12 @@ var wheel3;
 var wheel1Img = new Image();
 var wheel2Img = new Image();
 var wheel3Img = new Image();
+
 //setting the image sources to refer to the starting image with a "?"
 wheel1Img.src = "./images/spin.png";
 wheel2Img.src = "./images/spin.png";
 wheel3Img.src = "./images/spin.png";
+
 //declaring the wheels array
 var wheels = [wheel1 = new createjs.Bitmap(wheel1Img), wheel2 = new createjs.Bitmap(wheel2Img), wheel3 = new createjs.Bitmap(wheel3Img)];
 
@@ -110,20 +115,25 @@ var resetBtn;
 function init() {
     //setting the frames to 60 fps
     createjs.Ticker.setFPS(60);
+
     //this function draws the slot machine on the canvas
     drawSlotMachine();
+
     //updating the stage to show the changes so far
     stage.update();
+
     //this event listener is called every tick
     createjs.Ticker.addEventListener("tick", handleTick);
+
     //enables me to use mouseover and mouseout eventlisteners
     stage.enableMouseOver(20);
 }
 
 //this function is called 60 times a second, and updates the stage so user can see the changes occuring
 function handleTick() {
-    stage.update();  
+    stage.update();
 }
+
 //this function is called when the website loads, it draws the slot machine and plots the buttons on it, it also plots the fruits, and adds them to the stage
 function drawSlotMachine() {
     //background slot machine
@@ -131,7 +141,7 @@ function drawSlotMachine() {
     slotMachineBitmap.scaleX = 0.64;
     slotMachineBitmap.scaleY = 0.64;
     stage.addChild(slotMachineBitmap);
-    
+
     //spin button
     spinBtn = new createjs.Bitmap("./images/spinBtn.png");
     spinBtn.x = 500;
@@ -201,9 +211,7 @@ function drawSlotMachine() {
     wheels[2].scaleX = 0.5;
     wheels[2].scaleY = 0.5;
 
-
-    
-    //this is put on the slot machine after the wheel images are drawn on the canvas so they don't overlap the borders   
+    //this is put on the slot machine after the wheel images are drawn on the canvas so they don't overlap the borders
     stage.addChild(frame);
     frame.scaleX = .64;
     frame.scaleY = .64;
@@ -214,7 +222,6 @@ function drawSlotMachine() {
     youWonText.y = 800;
     youWonText.scaleX = 2;
     youWonText.scaleY = 2;
-
 
     //adds the players money text object
     stage.addChild(playerMoneyText);
@@ -242,27 +249,35 @@ function drawSlotMachine() {
     stage.addChild(closeWindows);
     closeWindows.x = 500;
     closeWindows.y = 0;
-    closeWindows.addEventListener("click", function () { if(confirm("Are you sure you want to quit?") { window.location.replace("http://www.google.ca") } });
-    closeWindows.addEventListener("mouseover", function () { closeWindows.x += 1, closeWindows.y += 1, quitHover.x = 20, quitHover.y = 200 });
-    closeWindows.addEventListener("mouseout", function () { closeWindows.x -= 1, closeWindows.y -= 1, quitHover.x = -1000, quitHover.y = -1000  });
-    closeWindows.addEventListener("mousedown", function () { closeWindows.scaleX = 0.8, closeWindows.scaleY = 0.8, closeWindows.x += 10, closeWindows.y += 10  });
+    closeWindows.addEventListener("click", function () {
+        window.location.replace("http://www.google.ca");
+    });
+    closeWindows.addEventListener("mouseover", function () {
+        closeWindows.x += 1, closeWindows.y += 1, quitHover.x = 20, quitHover.y = 200;
+    });
+    closeWindows.addEventListener("mouseout", function () {
+        closeWindows.x -= 1, closeWindows.y -= 1, quitHover.x = -1000, quitHover.y = -1000;
+    });
+    closeWindows.addEventListener("mousedown", function () {
+        closeWindows.scaleX = 0.8, closeWindows.scaleY = 0.8, closeWindows.x += 10, closeWindows.y += 10;
+    });
     closeWindows.addEventListener("pressup", function () {
-    closeWindows.scaleX = 1, closeWindows.scaleY = 1, closeWindows.x -= 10, closeWindows.y -= 10});
+        closeWindows.scaleX = 1, closeWindows.scaleY = 1, closeWindows.x -= 10, closeWindows.y -= 10;
+    });
 
     //background ambient noise that loops on the website
     backgroundNoise.addEventListener('ended', function () {
-        
         this.currentTime = 0;
         this.play();
     }, false);
     backgroundNoise.play();
-
 }
+
 //Mouse up events, animates the buttons growing back to their original size
 function upHandlerBet15() {
     bet15Btn.scaleX = 0.35;
     bet15Btn.scaleY = 0.35;
-    bet15Btn.x -=5;
+    bet15Btn.x -= 5;
     bet15Btn.y -= 5;
     stage.update();
 }
@@ -287,13 +302,14 @@ function upHandlerResetBtn() {
     resetBtn.y -= 5;
     stage.update();
 }
+
 //Mouse Down Events, animates buttons shrinking when clicked down on
 function downHandlerBet15() {
     bet15Btn.scaleX = 0.3;
     bet15Btn.scaleY = 0.3;
     bet15Btn.x = 385;
     bet15Btn.y = 640;
-    
+
     stage.update();
 }
 
@@ -324,21 +340,17 @@ function downHandlerResetBtn() {
 //Click Events, perform various tasks
 //when user clicks spin, this validates that the user has enough money to make the bet, then calls the Reels function which randomly decided what fruits are picked
 function clickHandlerSpin() {
-
-
     /* When the player clicks the spin button the game kicks off */
     stage.removeChild(flashWin);
     buttonNoise.play();
     playerBet = playerBet;
+
     //if players money is 0
     if (playerMoney == 0) {
         //resets the game
         clickHandlerReset();
         showPlayerStats();
-            
-    }
-    //if players bet is greater than the amount of money they have
-    else if (playerBet > playerMoney) {
+    } else if (playerBet > playerMoney) {
         //disable spin button and its event handlers
         spinBtn.alpha = 0.5;
         spinBtn.removeEventListener("click", clickHandlerSpin);
@@ -346,11 +358,8 @@ function clickHandlerSpin() {
         spinBtn.removeEventListener("mouseout", outHandlerSpinBtn);
         spinBtn.removeEventListener("mousedown", downHandlerSpinBtn);
         spinBtn.removeEventListener("pressup", upHandlerSpinBtn);
-            alert("You don't have enough Money to place that bet.");
-            
-    }
-    //if player bet is less then or equal to 0, disable spin button and provide error msg
-    else if (playerBet <= 0) {
+        alert("You don't have enough Money to place that bet.");
+    } else if (playerBet <= 0) {
         spinBtn.removeEventListener("click", clickHandlerSpin);
         spinBtn.removeEventListener("mouseover", overHandlerSpinBtn);
         spinBtn.removeEventListener("mouseout", outHandlerSpinBtn);
@@ -358,31 +367,28 @@ function clickHandlerSpin() {
         spinBtn.removeEventListener("pressup", upHandlerSpinBtn);
         spinBtn.alpha = 0.5;
         alert("All bets must be greater than 0");
-    }
-    //if player bet is valid
-    else if (playerBet <= playerMoney) {
+    } else if (playerBet <= playerMoney) {
         spinBtn.alpha = 1;
-            //call reels function, and store it in spinResult
-            spinResult = Reels();
-            fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-            $("div#result>p").text(fruits);
-            determineWinnings();
-            turn++;
-            showPlayerStats();
-            playerMoneyText.text = "Player Money: " + playerMoney;
-            //playerMoney = playerMoney - playerBet + winnings;
-            jackpotAmountText.text = "Jackpot: " + jackpot;
-            //after the images are drawn on, draw the frame to prevent border overlaps
-            stage.addChild(frame);
-            frame.scaleX = .64;
-            frame.scaleY = .64;
 
+        //call reels function, and store it in spinResult
+        spinResult = Reels();
+        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+        $("div#result>p").text(fruits);
+        determineWinnings();
+        turn++;
+        showPlayerStats();
+        playerMoneyText.text = "Player Money: " + playerMoney;
+
+        //playerMoney = playerMoney - playerBet + winnings;
+        jackpotAmountText.text = "Jackpot: " + jackpot;
+
+        //after the images are drawn on, draw the frame to prevent border overlaps
+        stage.addChild(frame);
+        frame.scaleX = .64;
+        frame.scaleY = .64;
+    } else {
+        alert("Please enter a valid bet amount");
     }
-        //general error
-        else {
-            alert("Please enter a valid bet amount");
-        }
-
 }
 
 //when user clicks the bet 15 btn, it plays a noise, sets the playerBet value, and changes the playerbet text value, and if its a valid bet amount re-enable spinBtn
@@ -397,12 +403,11 @@ function clickHandlerBet15() {
         spinBtn.addEventListener("mousedown", downHandlerSpinBtn);
         spinBtn.addEventListener("pressup", upHandlerSpinBtn);
         spinBtn.alpha = 1;
-    }
-    else {
+    } else {
         spinBtn.alpha = 0.5;
     }
-    
 }
+
 //when user clicks the bet 5 btn, it plays a noise, sets the playerBet value, and changes the playerbet text value, and if its a valid bet amount re-enable spinBtn
 function clickHandlerBet5() {
     playerBet = 5;
@@ -415,12 +420,11 @@ function clickHandlerBet5() {
         spinBtn.addEventListener("mousedown", downHandlerSpinBtn);
         spinBtn.addEventListener("pressup", upHandlerSpinBtn);
         spinBtn.alpha = 1;
-    }
-    else {
+    } else {
         spinBtn.alpha = 0.5;
     }
 }
-    
+
 //resets the game to original values, and resets text objects, and wheel images to default images, and calls the drawSlotMachine function again
 function clickHandlerReset() {
     buttonNoise.play();
@@ -431,20 +435,17 @@ function clickHandlerReset() {
         wheels[0].image = wheel1Img;
         wheels[1].image = wheel2Img;
         wheels[2].image = wheel3Img;
-        
+
         playerMoneyText.text = "Player Money: " + playerMoney;
         betAmountText.text = "Bet: " + playerBet;
         jackpotAmountText.text = "Jackpot: " + jackpot;
 
         drawSlotMachine();
     }
-    
 }
-
 
 //Mouse Over handlers, animate a btn jump when user hovers over button
 function overHandlerBet15() {
-
     bet15Btn.x += 1;
     bet15Btn.y += 1;
 }
@@ -486,11 +487,6 @@ function outHandlerResetBtn() {
     stage.update();
 }
 
-
-
-
-
-
 /* Utility function to show Player Stats */
 function showPlayerStats() {
     winRatio = winNumber / turn;
@@ -526,7 +522,6 @@ function resetAll() {
     winRatio = 0;
 }
 
-
 /* Check to see if the player won the jackpot */
 function checkJackPot() {
     /* compare two random values */
@@ -537,7 +532,6 @@ function checkJackPot() {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
         jackpot = 1000;
-        
     }
 }
 
@@ -550,15 +544,13 @@ function showWinMessage() {
     flashWin.y = -20;
     flashWin.scaleX = 0.7;
     flashWin.scaleY = 0.7;
-     
+
     $("div#winOrLose>p").text("You Won: $" + winnings);
     if (winnings <= 5) {
         oneCoin.play();
-    }
-    else if (winnings > 15) {
+    } else if (winnings > 15) {
         thirtyCoins.play();
-    }
-    else if (winnings > 49) {
+    } else if (winnings > 49) {
         OneHundredCoins.play();
     }
     resetFruitTally();
@@ -577,8 +569,7 @@ function showLossMessage() {
 function checkRange(value, lowerBounds, upperBounds) {
     if (value >= lowerBounds && value <= upperBounds) {
         return value;
-    }
-    else {
+    } else {
         return !value;
     }
 }
@@ -591,36 +582,39 @@ function Reels() {
     for (var spin = 0; spin < 3; spin++) {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
-            case checkRange(outCome[spin], 1, 27):  // 41.5% probability
+            case checkRange(outCome[spin], 1, 27):
                 //checks what spin value is and places the correct image on the correct wheel, ex: if spin is 2 places it on 2nd wheel etc.
                 if (spin == 0) {
-                    wheels[spin].x = 190; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 285; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 375; wheels[spin].y = 420;
+                    wheels[spin].x = 190;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 285;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 375;
+                    wheels[spin].y = 420;
                 }
 
                 //sets the wheels image to blank image in this instance, below are all the other options, same code
                 wheels[spin].image = blanksImg;
+
                 //position it correctly according to blankImg size
                 wheels[spin].x -= 5;
                 wheels[spin].y += 5;
                 wheels[spin].scaleX = 0.45;
-                wheels[spin].scaleY = 0.45;                
+                wheels[spin].scaleY = 0.45;
                 blanks++;
                 break;
-            case checkRange(outCome[spin], 28, 37): // 15.4% probability
+            case checkRange(outCome[spin], 28, 37):
                 if (spin == 0) {
-                    wheels[spin].x = 190; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 285; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 375; wheels[spin].y = 420;
+                    wheels[spin].x = 190;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 285;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 375;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Gropes";
                 wheels[spin].image = grapesImg;
@@ -630,15 +624,16 @@ function Reels() {
                 wheels[spin].scaleY = 0.5;
                 grapes++;
                 break;
-            case checkRange(outCome[spin], 38, 46): // 13.8% probability
+            case checkRange(outCome[spin], 38, 46):
                 if (spin == 0) {
-                    wheels[spin].x = 190; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 285; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 375; wheels[spin].y = 420;
+                    wheels[spin].x = 190;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 285;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 375;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Bonana";
                 wheels[spin].image = bananasImg;
@@ -648,15 +643,16 @@ function Reels() {
                 wheels[spin].scaleY = 1;
                 bananas++;
                 break;
-            case checkRange(outCome[spin], 47, 54): // 12.3% probability
+            case checkRange(outCome[spin], 47, 54):
                 if (spin == 0) {
-                    wheels[spin].x = 190; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 285; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 380; wheels[spin].y = 420;
+                    wheels[spin].x = 190;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 285;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 380;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Orange";
                 wheels[spin].image = orangesImg;
@@ -666,15 +662,16 @@ function Reels() {
                 wheels[spin].scaleY = 0.5;
                 oranges++;
                 break;
-            case checkRange(outCome[spin], 55, 59): //  7.7% probability
+            case checkRange(outCome[spin], 55, 59):
                 if (spin == 0) {
-                    wheels[spin].x = 183; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 280; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 375; wheels[spin].y = 420;
+                    wheels[spin].x = 183;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 280;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 375;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Cherry";
                 wheels[spin].image = cherriesImg;
@@ -684,15 +681,16 @@ function Reels() {
                 wheels[spin].scaleY = 0.5;
                 cherries++;
                 break;
-            case checkRange(outCome[spin], 60, 62): //  4.6% probability
+            case checkRange(outCome[spin], 60, 62):
                 if (spin == 0) {
-                    wheels[spin].x = 190; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 285; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 375; wheels[spin].y = 420;
+                    wheels[spin].x = 190;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 285;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 375;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Bar";
                 wheels[spin].image = barsImg;
@@ -702,15 +700,16 @@ function Reels() {
                 wheels[spin].scaleY = 0.9;
                 bars++;
                 break;
-            case checkRange(outCome[spin], 63, 64): //  3.1% probability
+            case checkRange(outCome[spin], 63, 64):
                 if (spin == 0) {
-                    wheels[spin].x = 200; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 290; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 385; wheels[spin].y = 420;
+                    wheels[spin].x = 200;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 290;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 385;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Bell";
                 wheels[spin].image = bellsImg;
@@ -720,15 +719,16 @@ function Reels() {
                 wheels[spin].scaleY = 0.7;
                 bells++;
                 break;
-            case checkRange(outCome[spin], 65, 65): //  1.5% probability
+            case checkRange(outCome[spin], 65, 65):
                 if (spin == 0) {
-                    wheels[spin].x = 197; wheels[spin].y = 420;
-                }
-                else if (spin == 1) {
-                    wheels[spin].x = 290; wheels[spin].y = 420;
-                }
-                else if (spin == 2) {
-                    wheels[spin].x = 385; wheels[spin].y = 420;
+                    wheels[spin].x = 197;
+                    wheels[spin].y = 420;
+                } else if (spin == 1) {
+                    wheels[spin].x = 290;
+                    wheels[spin].y = 420;
+                } else if (spin == 2) {
+                    wheels[spin].x = 385;
+                    wheels[spin].y = 420;
                 }
                 betLine[spin] = "Seven";
                 wheels[spin].image = sevensImg;
@@ -748,61 +748,42 @@ function determineWinnings() {
     if (blanks == 0) {
         if (grapes == 3) {
             winnings = playerBet * 10;
-        }
-        else if (bananas == 3) {
+        } else if (bananas == 3) {
             winnings = playerBet * 20;
-        }
-        else if (oranges == 3) {
+        } else if (oranges == 3) {
             winnings = playerBet * 30;
-        }
-        else if (cherries == 3) {
+        } else if (cherries == 3) {
             winnings = playerBet * 40;
-        }
-        else if (bars == 3) {
+        } else if (bars == 3) {
             winnings = playerBet * 50;
-        }
-        else if (bells == 3) {
+        } else if (bells == 3) {
             winnings = playerBet * 75;
-        }
-        else if (sevens == 3) {
+        } else if (sevens == 3) {
             winnings = playerBet * 100;
-        }
-        else if (grapes == 2) {
+        } else if (grapes == 2) {
             winnings = playerBet * 2;
-        }
-        else if (bananas == 2) {
+        } else if (bananas == 2) {
             winnings = playerBet * 2;
-        }
-        else if (oranges == 2) {
+        } else if (oranges == 2) {
             winnings = playerBet * 3;
-        }
-        else if (cherries == 2) {
+        } else if (cherries == 2) {
             winnings = playerBet * 4;
-        }
-        else if (bars == 2) {
+        } else if (bars == 2) {
             winnings = playerBet * 5;
-        }
-        else if (bells == 2) {
+        } else if (bells == 2) {
             winnings = playerBet * 10;
-        }
-        else if (sevens == 2) {
+        } else if (sevens == 2) {
             winnings = playerBet * 20;
-        }
-        else if (sevens == 1) {
+        } else if (sevens == 1) {
             winnings = playerBet * 5;
-        }
-        else {
+        } else {
             winnings = playerBet * 1;
         }
         winNumber++;
         showWinMessage();
-    }
-    else {
+    } else {
         lossNumber++;
         showLossMessage();
     }
-
 }
-
-
-
+//# sourceMappingURL=game.js.map
