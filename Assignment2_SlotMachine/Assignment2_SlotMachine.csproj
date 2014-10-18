@@ -78,6 +78,7 @@
     <Content Include="images\button1.png" />
     <Content Include="images\cherries.png" />
     <Content Include="images\close.png" />
+    <Content Include="images\flash.png" />
     <Content Include="images\frame.png" />
     <Content Include="images\grapes.png" />
     <Content Include="images\oranges.png" />

@@ -46,6 +46,9 @@ var closeWindows = new createjs.Bitmap(closeWindowsImg);
 var quit = new Image();
 quit.src = "images/quitHover.png";
 var quitHover = new createjs.Bitmap(quit);
+var flash = new Image();
+flash.src = "images/flash.png";
+var flashWin = new createjs.Bitmap(flash);
 
 //initializing audio files
 var win = new Audio();
@@ -319,9 +322,10 @@ function downHandlerResetBtn() {
 //Click Events, perform various tasks
 //when user clicks spin, this validates that the user has enough money to make the bet, then calls the Reels function which randomly decided what fruits are picked
 function clickHandlerSpin() {
-    
+
 
     /* When the player clicks the spin button the game kicks off */
+    stage.removeChild(flashWin);
     buttonNoise.play();
     playerBet = playerBet;
     //if players money is 0
@@ -539,6 +543,12 @@ function checkJackPot() {
 function showWinMessage() {
     playerMoney += winnings;
     youWonText.text = "You Won: $" + winnings;
+    stage.addChild(flashWin);
+    flashWin.x = 240;
+    flashWin.y = -20;
+    flashWin.scaleX = 0.7;
+    flashWin.scaleY = 0.7;
+     
     $("div#winOrLose>p").text("You Won: $" + winnings);
     if (winnings <= 5) {
         oneCoin.play();
