@@ -66,6 +66,7 @@ OneHundredCoins.src = "sounds/100Coints.wav";
 var playerMoneyText = new createjs.Text("Player Money: " + playerMoney, "12px Tahoma", "White");
 var betAmountText = new createjs.Text("Bet: " + playerBet, "12px Tahoma", "White");
 var jackpotAmountText = new createjs.Text("Jackpot: " + jackpot, "12px Tahoma", "White");
+var youWonText = new createjs.Text("", "12px Tahoma", "White");
 
 //creating the stage that refers to the canvas element in index.html
 var stage = new createjs.Stage(document.getElementById("canvas"));
@@ -201,6 +202,14 @@ function drawSlotMachine() {
     stage.addChild(frame);
     frame.scaleX = .64;
     frame.scaleY = .64;
+
+    //adds the you won/lost text
+    stage.addChild(youWonText);
+    youWonText.x = 250;
+    youWonText.y = 800;
+    youWonText.scaleX = 2;
+    youWonText.scaleY = 2;
+
 
     //adds the players money text object
     stage.addChild(playerMoneyText);
@@ -529,6 +538,7 @@ function checkJackPot() {
 /* Utility function to show a win message and increase player money */
 function showWinMessage() {
     playerMoney += winnings;
+    youWonText.text = "You Won: $" + winnings;
     $("div#winOrLose>p").text("You Won: $" + winnings);
     if (winnings <= 5) {
         oneCoin.play();
@@ -546,6 +556,7 @@ function showWinMessage() {
 /* Utility function to show a loss message and reduce player money */
 function showLossMessage() {
     playerMoney -= playerBet;
+    youWonText.text = "You Lost";
     $("div#winOrLose>p").text("You Lost!");
     resetFruitTally();
 }
@@ -560,7 +571,7 @@ function checkRange(value, lowerBounds, upperBounds) {
     }
 }
 
-/* When this function is called it determines the wheels images results and draws them onto the canvas element
+/* When this function is called it determines the wheels images results and draws them onto the canvas element*/
 function Reels() {
     var betLine = [" ", " ", " "];
     var outCome = [0, 0, 0];
